@@ -1,8 +1,5 @@
 package world.playtogether.list;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * algoPractice
  *
