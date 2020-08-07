@@ -3,7 +3,7 @@ package world.playtogether.list;
 /**
  * algoPractice
  *
- * <p> 单向链表
+ * <p> 单向链表,(带头节点)
  *
  * @author : penggs
  * @since : 2020-08-05 23:13
@@ -40,7 +40,7 @@ public class ApSingleLinkedList<T> {
     }
 
     /**
-     * 通过值查找
+     * 通过值查找节点，只返回查找到的第一个节点
      *
      * @param data 值
      * @return world.playtogether.list.ApSingleLinkedList.Node<T>
@@ -68,7 +68,7 @@ public class ApSingleLinkedList<T> {
      */
     public boolean existNode(Node<T> node) {
         Node<T> p = head;
-        while (p != null && !p.equals(node)) {
+        while (p != null && p !=node) {
             p = p.next;
         }
         return p != null;
@@ -80,6 +80,7 @@ public class ApSingleLinkedList<T> {
             newNode.next = head;
         }
         head = newNode;
+        size++;
     }
 
     public void insertToTail(T data) {
@@ -93,6 +94,7 @@ public class ApSingleLinkedList<T> {
             }
             p.next = newNode;
         }
+        size++;
     }
 
     /**
@@ -118,6 +120,7 @@ public class ApSingleLinkedList<T> {
         Node<T> newNode = new Node<>(data, null);
         newNode.next = afterNode.next;
         afterNode.next = newNode;
+        size++;
     }
 
     /**
@@ -152,11 +155,45 @@ public class ApSingleLinkedList<T> {
         Node<T> newNode = new Node<>(data, null);
         newNode.next = beforeNode;
         p.next = newNode;
+        size++;
     }
 
-    public void deleteByNode(Node<T> delNode) {}
+    /**
+     * 删除指定节点
+     *
+     * @param delNode 节点
+     * @author penggs
+     * @since 2020/8/7
+     */
+    public void deleteByNode(Node<T> delNode) {
+        if (delNode == null || head == null) {
+            return;
+        }
+        if (delNode == head) {
+            head = head.next;
+            size--;
+            return;
+        }
+        // 找到要删除节点的前置节点
+        Node<T> p = head;
+        while (p != null && p.next != delNode) {
+            p = p.next;
+        }
+        // 未找到
+        if (p == null) {
+            throw new IllegalArgumentException("delNode does not exist!");
+        }
+        p.next = p.next.next;
+        size--;
+    }
 
-    public void deleteByData(T data) {}
+    public void deleteByData(T data) {
+        Node<T> delNode = findByData(data);
+        if (delNode == null) {
+            throw new IllegalArgumentException("data not found!");
+        }
+        deleteByNode(delNode);
+    }
 
     @Override
     public String toString() {
@@ -166,6 +203,9 @@ public class ApSingleLinkedList<T> {
         while (p != null) {
             sb.append(p.toString());
             p = p.next;
+            if (p != null) {
+                sb.append(",");
+            }
         }
         sb.append("]");
         return sb.toString();
@@ -179,5 +219,33 @@ public class ApSingleLinkedList<T> {
             this.data = data;
             this.next = next;
         }
+
+        @Override
+        public String toString() {
+            return data.toString();
+        }
+    }
+
+    public static void main(String[] args) {
+        ApSingleLinkedList<String> linkedList = new ApSingleLinkedList<>();
+        linkedList.insertToHead("One");
+        linkedList.insertToTail("Two");
+        linkedList.insertBefore("One", "BeforeOne");
+        linkedList.insertAfter("Two", "AfterTwo");
+        Node<String> node = linkedList.findByData("One");
+        linkedList.insertBefore(node, "BeforeOne2");
+        linkedList.insertAfter(node, "AfterOne2");
+        System.out.println(linkedList.toString());
+        System.out.println(linkedList.existNode(node));
+        linkedList.deleteByNode(node);
+        System.out.println(linkedList.toString());
+        linkedList.deleteByData("Two");
+        System.out.println(linkedList.toString());
+        linkedList.insertToHead("Head");
+        System.out.println(linkedList.toString());
+        System.out.println(linkedList.findByIndex(2));
+        System.out.println(linkedList.findByData("Three"));
+        System.out.println(linkedList.getSize());
+        System.out.println(linkedList.findByIndex(20));
     }
 }
