@@ -13,7 +13,7 @@ package world.playtogether.list;
  * @author penggs
  * @since 2020-08-08 10:39
  */
-public class ApForSingleLinkedList<T extends Comparable<T>> {
+public class ApOpSingleLinkedList<T extends Comparable<T>> {
 
     /**
      * 单链表反转
@@ -201,15 +201,15 @@ public class ApForSingleLinkedList<T extends Comparable<T>> {
         Node<String> node2 = new Node<>("Two", node1);
         Node<String> node3 = new Node<>("Three", node2);
         Node<String> node4 = new Node<>("Four", node3);
-        ApForSingleLinkedList<String> apForSingleLinkedList = new ApForSingleLinkedList<>();
-        Node<String> node = apForSingleLinkedList.reverse(node4);
-        System.out.println(apForSingleLinkedList.printList(node));
-        System.out.println(apForSingleLinkedList.checkCircle(node));
-        System.out.println(apForSingleLinkedList.printList(apForSingleLinkedList.getMiddleNode(node)));
-        System.out.println(apForSingleLinkedList.printList(apForSingleLinkedList.deleteLastKth(node, 2)));
+        ApOpSingleLinkedList<String> apOpSingleLinkedList = new ApOpSingleLinkedList<>();
+        Node<String> node = apOpSingleLinkedList.reverse(node4);
+        System.out.println(apOpSingleLinkedList.printList(node));
+        System.out.println(apOpSingleLinkedList.checkCircle(node));
+        System.out.println(apOpSingleLinkedList.printList(apOpSingleLinkedList.getMiddleNode(node)));
+        System.out.println(apOpSingleLinkedList.printList(apOpSingleLinkedList.deleteLastKth(node, 2)));
 
         Node<String> node5 = new Node<>("Five", null);
         Node<String> node6 = new Node<>("Six", node5);
-        System.out.println(apForSingleLinkedList.printList(apForSingleLinkedList.mergeSortedList(node, node6)));
+        System.out.println(apOpSingleLinkedList.printList(apOpSingleLinkedList.mergeSortedList(node, node6)));
     }
 }
