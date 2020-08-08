@@ -59,7 +59,8 @@ public class ApArrayList<T> {
 
     public void remove(int index) {
         checkIndex(index);
-        if (size - index > 0) System.arraycopy(data, index + 1, data, index, size - index);
+        // 此处减一，是因为数组的最后一位已经没有右侧数据可以补位
+        if (size - 1 - index >= 0) System.arraycopy(data, index + 1, data, index, size - 1 - index);
         size--;
     }
 
@@ -92,6 +93,10 @@ public class ApArrayList<T> {
 
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == data.length;
     }
 
     private void checkIndex(int index) {

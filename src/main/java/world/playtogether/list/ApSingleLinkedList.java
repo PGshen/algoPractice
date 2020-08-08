@@ -195,6 +195,51 @@ public class ApSingleLinkedList<T> {
         deleteByNode(delNode);
     }
 
+    /**
+     * 删除尾节点
+     *
+     * @author penggs
+     * @since 2020/8/8
+     */
+    public void deleteTail() {
+        // 无节点
+        if (head == null) {
+            return;
+            // 只有一个节点
+        } else if (head.next == null) {
+            head = null;
+            size--;
+            return;
+        }
+        Node<T> p = head;
+        // 找到尾节点的前置节点
+        while (p.next.next != null) {
+            p = p.next;
+        }
+        p.next = null;
+        size--;
+    }
+
+    /**
+     * 删除第一个节点，非head节点
+     *
+     * @author penggs
+     * @since 2020/8/8
+     */
+    public void deleteHead() {
+        if (head == null) {
+            return;
+        } else if (head.next == null) {
+            head = null;
+            size--;
+            return;
+        }
+        Node<T> p = head.next;
+        head.next = null;
+        head = p;
+        size++;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -211,6 +256,9 @@ public class ApSingleLinkedList<T> {
         return sb.toString();
     }
 
+    /**
+     * 节点
+     */
     public static class Node<T> {
         private T data;
         private Node<T> next;
