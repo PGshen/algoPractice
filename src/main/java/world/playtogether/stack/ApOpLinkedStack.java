@@ -8,6 +8,7 @@ import world.playtogether.list.ApArrayList;
  * <p> 栈常用操作
  * 1. 表达式求值
  * 2. 括号匹配
+ * 3. 浏览器网页前进后退功能
  *
  * @author penggs
  * @since 2020-08-08 18:54
@@ -156,6 +157,21 @@ public class ApOpLinkedStack<T> {
 
     public boolean isPaired(char left, char right) {
         return left == '(' && right == ')' || left == '[' && right == ']' ||left == '{' && right == '}';
+    }
+
+    /**
+     * 模拟浏览器的网页前进后退功能
+     * 思路：使用两个栈，X 和 Y，
+     * 我们把首次浏览的页面依次压入栈 X，并清空栈Y
+     * 当点击后退按钮时，再依次从栈 X 中出栈，并将出栈的数据依次放入栈 Y。
+     * 当我们点击前进按钮时，我们依次从栈 Y 中取出数据，放入栈 X 中。
+     * 当栈 X 中没有数据时，那就说明没有页面可以继续后退浏览了。当栈 Y 中没有数据，那就说明没有页面可以点击前进按钮浏览了。
+     *
+     * @author penggs
+     * @since 2020/8/8
+     */
+    public void browserForwardAndBack() {
+
     }
 
     public static void main(String[] args) {
