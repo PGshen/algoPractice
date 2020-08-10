@@ -13,7 +13,7 @@ package world.playtogether.search;
  * @author penggs
  * @since 2020-08-09 16:56
  */
-public class BinarySearch {
+public class ApBinarySearch {
     /**
      * 基于迭代的二分查找
      * 前提条件，有序且不存在重复的值
