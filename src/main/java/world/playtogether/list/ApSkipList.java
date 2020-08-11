@@ -14,7 +14,7 @@ import java.util.Random;
 public class ApSkipList<T extends Comparable<T>> {
     private static final int MAX_LEVEL = 16;
     private int levelCount = 1;
-    
+
     // 带头节点
     private final Node<T> head = new Node<>(MAX_LEVEL);
     private final Random random = new Random();
@@ -159,7 +159,7 @@ public class ApSkipList<T extends Comparable<T>> {
                     '}';
         }
     }
-    
+
     public static void main(String[] args) {
         ApSkipList<Integer> skipList = new ApSkipList<>();
         skipList.insert(1);

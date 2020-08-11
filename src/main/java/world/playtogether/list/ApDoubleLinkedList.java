@@ -226,6 +226,14 @@ public class ApDoubleLinkedList<T> {
         size--;
     }
 
+    public Node<T> getHead() {
+        return head;
+    }
+
+    public Node<T> getTail() {
+        return tail;
+    }
+
     public boolean isEmpty() {
         return size == 0;
     }
@@ -252,13 +260,17 @@ public class ApDoubleLinkedList<T> {
      * @author penggs
      * @since 2020/8/8
      */
-    static class Node<T> {
+    public static class Node<T> {
         T data;
         Node<T> prev;
         Node<T> next;
 
         public Node(T data) {
             this.data = data;
+        }
+
+        public T getData() {
+            return data;
         }
 
         @Override
