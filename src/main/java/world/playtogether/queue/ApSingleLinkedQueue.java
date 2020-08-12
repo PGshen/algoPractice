@@ -37,6 +37,7 @@ public class ApSingleLinkedQueue<T> {
         Node<T> p = head;
         head = head.next;
         p.next = null;
+        size--;
         return p.data;
     }
     
