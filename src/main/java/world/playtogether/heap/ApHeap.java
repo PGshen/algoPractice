@@ -13,14 +13,31 @@ public class ApHeap<T extends Comparable<T>> {
     private Object[] container;
     private int capacity;
     private int count;
+    private boolean isBigHeap;  // true：大顶堆 false：小顶堆
 
     public ApHeap() {
+        this.isBigHeap = true;
+        this.container = new Object[10];
+        this.capacity = 10;
+        this.count = 0;
+    }
+
+    public ApHeap(boolean isBigHeap) {
+        this.isBigHeap = isBigHeap;
         this.container = new Object[10];
         this.capacity = 10;
         this.count = 0;
     }
 
     public ApHeap(int capacity) {
+        this.isBigHeap = true;
+        this.container = new Object[capacity];
+        this.capacity = capacity;
+        this.count = 0;
+    }
+
+    public ApHeap(int capacity, boolean isBigHeap) {
+        this.isBigHeap = isBigHeap;
         this.container = new Object[capacity];
         this.capacity = capacity;
         this.count = 0;
@@ -40,9 +57,16 @@ public class ApHeap<T extends Comparable<T>> {
         container[count++] = data;
         int i = count - 1;
         // 自下向上堆化
-        while (i/2 >=0 && ((T)container[i]).compareTo((T)container[(i-1)/2]) > 0) {
-            swap(container, i, (i-1)/2);
-            i = (i-1)/2;
+        if (isBigHeap) {
+            while (i/2 >=0 && ((T)container[i]).compareTo((T)container[(i-1)/2]) > 0) {
+                swap(container, i, (i-1)/2);
+                i = (i-1)/2;
+            }
+        } else {
+            while (i/2 >=0 && ((T)container[i]).compareTo((T)container[(i-1)/2]) < 0) {
+                swap(container, i, (i-1)/2);
+                i = (i-1)/2;
+            }
         }
     }
 
@@ -52,11 +76,32 @@ public class ApHeap<T extends Comparable<T>> {
      * @author penggs
      * @since 2020/8/13
      */
-    public void removeMax() {
-        if (count == 0) return;
+    public T removeTop() {
+        if (count == 0) return null;
+        T temp = (T) container[0];
         container[0] = container[count-1];
         heapify(container, count, 0);
         count--;
+        return temp;
+    }
+
+    /**
+     * 获取堆顶
+     *
+     * @return T
+     * @author penggs
+     * @since 2020/8/15
+     */
+    public T getTop() {
+        return (T) container[0];
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public boolean isEmpty() {
+        return count == 0;
     }
 
     /**
@@ -86,9 +131,16 @@ public class ApHeap<T extends Comparable<T>> {
         for (int i = 0; i < len; i++) {
             int pi = i;
             // 建container[pi]纳入堆，然后进行堆化
-            while (pi/2 >=0 && ((T)container[pi]).compareTo((T)container[(pi-1)/2]) > 0) {
-                swap(container, pi, (pi-1)/2);
-                pi = (pi-1)/2;
+            if (isBigHeap) {
+                while (pi/2 >=0 && ((T)container[pi]).compareTo((T)container[(pi-1)/2]) > 0) {
+                    swap(container, pi, (pi-1)/2);
+                    pi = (pi-1)/2;
+                }
+            } else {
+                while (pi/2 >=0 && ((T)container[pi]).compareTo((T)container[(pi-1)/2]) < 0) {
+                    swap(container, pi, (pi-1)/2);
+                    pi = (pi-1)/2;
+                }
             }
         }
     }
@@ -104,20 +156,31 @@ public class ApHeap<T extends Comparable<T>> {
      */
     private void heapify(Object[] container, int len, int i) {
         while (true) {
-            int maxPos = i;
-            // 左节点
-            if (i * 2 + 1 < len && ((T)container[maxPos]).compareTo((T)container[i*2+1]) < 0) {
-                maxPos = i * 2 + 1;
+            int pos = i;
+            if (isBigHeap) {
+                // 左节点
+                if (i * 2 + 1 < len && ((T)container[pos]).compareTo((T)container[i*2+1]) < 0) {
+                    pos = i * 2 + 1;
+                }
+                // 右节点
+                if (i * 2 + 2 < len && ((T)container[pos]).compareTo((T)container[i*2+2]) < 0) {
+                    pos = i * 2 + 2;
+                }
+            } else {
+                // 左节点
+                if (i * 2 + 1 < len && ((T)container[pos]).compareTo((T)container[i*2+1]) > 0) {
+                    pos = i * 2 + 1;
+                }
+                // 右节点
+                if (i * 2 + 2 < len && ((T)container[pos]).compareTo((T)container[i*2+2]) > 0) {
+                    pos = i * 2 + 2;
+                }
             }
-            // 右节点
-            if (i * 2 + 2 < len && ((T)container[maxPos]).compareTo((T)container[i*2+2]) < 0) {
-                maxPos = i * 2 + 2;
-            }
-            if (maxPos == i) {
+            if (pos == i) {
                 break;
             }
-            swap(container, i, maxPos);
-            i = maxPos;
+            swap(container, i, pos);
+            i = pos;
         }
     }
 
@@ -137,14 +200,14 @@ public class ApHeap<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        ApHeap<Integer> apHeap = new ApHeap<>();
+        ApHeap<Integer> apHeap = new ApHeap<>(false);
         apHeap.insert(11);
         apHeap.insert(2);
         apHeap.insert(3);
         apHeap.insert(4);
         apHeap.insert(15);
         System.out.println(apHeap);
-        apHeap.removeMax();
+        apHeap.removeTop();
         System.out.println(apHeap);
         Integer[] ints = new Integer[]{22,3,4,5,77,53};
         apHeap.buildHeap2(ints, 6);
