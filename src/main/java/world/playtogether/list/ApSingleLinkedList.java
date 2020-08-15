@@ -240,6 +240,10 @@ public class ApSingleLinkedList<T> {
         size++;
     }
 
+    public Node<T> getHead() {
+        return head;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -266,6 +270,14 @@ public class ApSingleLinkedList<T> {
         public Node(T data, Node<T> next) {
             this.data = data;
             this.next = next;
+        }
+
+        public Node<T> getNext() {
+            return next;
+        }
+
+        public T getData() {
+            return data;
         }
 
         @Override
