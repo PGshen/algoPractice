@@ -1,7 +1,6 @@
 package world.playtogether.heap;
 
 import java.lang.reflect.Array;
-import java.util.PriorityQueue;
 
 /**
  * <project> algoPractice
@@ -12,7 +11,7 @@ import java.util.PriorityQueue;
  * @since 2020-08-15
  */
 @SuppressWarnings("unchecked")
-public class TopkCount<T extends Comparable<T>> {
+public class ApTopkCount<T extends Comparable<T>> {
     /**
      * topK
      *
@@ -50,9 +49,9 @@ public class TopkCount<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        TopkCount<Integer> topkCount = new TopkCount<>();
+        ApTopkCount<Integer> apTopkCount = new ApTopkCount<>();
         Integer[] source = new Integer[] {2, 3, 4, 66, 77, 1, 334, 567};
-        Integer[] res = topkCount.topK(source, Integer.class, 3);
+        Integer[] res = apTopkCount.topK(source, Integer.class, 3);
         for (Integer re : res) {
             System.out.print(re + " ");
         }

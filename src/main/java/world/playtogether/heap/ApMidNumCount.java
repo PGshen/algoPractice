@@ -1,7 +1,5 @@
 package world.playtogether.heap;
 
-import java.util.PriorityQueue;
-
 /**
  * <project> algoPractice
  *
@@ -10,7 +8,7 @@ import java.util.PriorityQueue;
  * @author penggs
  * @since 2020-08-15
  */
-public class MidNumCount<T extends Comparable<T>> {
+public class ApMidNumCount<T extends Comparable<T>> {
 
     // 大顶堆，存储前半部分
     private ApHeap<T> bigHeap = new ApHeap<>(51);
@@ -78,7 +76,7 @@ public class MidNumCount<T extends Comparable<T>> {
     }
 
     public static void main(String[] args) {
-        MidNumCount<Integer> midNumCount = new MidNumCount<>();
+        ApMidNumCount<Integer> midNumCount = new ApMidNumCount<>();
         midNumCount.putData(222);
         midNumCount.putData(2222);
         midNumCount.putData(2223);
