@@ -145,13 +145,35 @@ public class ApHashTable<K, V> {
         return sb.toString();
     }
 
+    public String toString2() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (Entry<K, V> kvEntry : table) {
+            if (kvEntry == null) continue;
+            while (kvEntry.next != null) {
+                kvEntry = kvEntry.next;
+                sb.append(kvEntry.value);
+                if (kvEntry.next != null) {
+                    sb.append(",");
+                }
+            }
+            sb.append(",");
+        }
+        if (sb.toString().endsWith(",")) {
+            return sb.substring(0, sb.length() - 1) + "]";
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
     public int getElementCount() {
         return elementCount;
     }
 
     private int hash(Object key) {
         int hashCode;
-        return (key == null) ? 0 : ((hashCode = key.hashCode()) ^ hashCode >>> 16) % table.length;
+        // NOTE: hashCode可能为负数
+        return (key == null) ? 0 : Math.abs(((hashCode = key.hashCode()) ^ hashCode >>> 16) % table.length);
     }
 
     static class Entry<K, V> {
@@ -164,6 +186,8 @@ public class ApHashTable<K, V> {
             this.value = value;
             this.next = next;
         }
+
+
     }
 
     public static void main(String[] args) {
