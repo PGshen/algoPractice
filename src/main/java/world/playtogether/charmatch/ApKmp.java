@@ -1,4 +1,4 @@
-package world.playtogether.strmatch;
+package world.playtogether.charmatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,8 @@ import java.util.List;
  * <project> algoPractice
  *
  * <p> KMP算法
+ * 空间复杂度是 O(m)，m 表示模式串的长度
+ * 时间复杂度就是 O(m+n)，n为主串的长度
  *
  * @author penggs
  * @since 2020-08-17

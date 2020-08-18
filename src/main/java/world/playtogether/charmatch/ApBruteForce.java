@@ -1,9 +1,10 @@
-package world.playtogether.strmatch;
+package world.playtogether.charmatch;
 
 /**
  * <project> algoPractice
  *
  * <p> 朴素匹配算法
+ * 时间复杂度是 O(n*m)
  *
  * @author penggs
  * @since 2020-08-15

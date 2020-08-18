@@ -1,9 +1,10 @@
-package world.playtogether.strmatch;
+package world.playtogether.charmatch;
 
 /**
  * <project> algoPractice
  *
  * <p> BM 匹配算法
+ * 时间复杂度 最大5n或3n
  *
  * @author penggs
  * @since 2020-08-16

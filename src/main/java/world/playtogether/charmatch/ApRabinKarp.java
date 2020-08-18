@@ -1,4 +1,4 @@
-package world.playtogether.strmatch;
+package world.playtogether.charmatch;
 
 /**
  * <project> algoPractice
@@ -7,6 +7,7 @@ package world.playtogether.strmatch;
  * 算法原理： 将字符的比较转为哈希值的比较；
  * 通过比较主串的每个子串的哈希值与模式串的哈希值进行比对，如果哈希值一致再比较具体每个字符，
  * 哈希值的比较比起直接比较字符串计算量减小
+ * 时间复杂度就是 O(n)。
  *
  * @author penggs
  * @since 2020-08-15

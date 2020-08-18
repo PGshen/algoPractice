@@ -1,4 +1,4 @@
-package world.playtogether.strmatch;
+package world.playtogether.charmatch;
 
 import world.playtogether.hashtable.ApHashTable;
 
@@ -6,6 +6,8 @@ import world.playtogether.hashtable.ApHashTable;
  * <project> algoPractice
  *
  * <p> 字典树
+ * 构建 Trie 树的过程，需要扫描所有的字符串，时间复杂度是 O(n)（n 表示所有字符串的长度和）
+ * 查找字符串的时间复杂度是 O(k)，k 表示要查找的字符串的长度
  *
  * @author penggs
  * @since 2020-08-17
