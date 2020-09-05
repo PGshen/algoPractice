@@ -7,15 +7,20 @@ import java.util.List;
 /**
  * <project> algoPractice
  * 双指针用法
- *
  * <p> 三数之和
- * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 指定值 ？请你找出所有满足条件且不重复的三元组。
- * 注意：答案中不可以包含重复的三元组。
  *
  * @author penggs
  * @since 2020-09-05
  */
 public class ApThreeSum {
+    /**
+     * 给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 指定值 ？请你找出所有满足条件且不重复的三元组。
+     * 注意：答案中不可以包含重复的三元组。
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
     public static List<List<Integer>> threeSum(int[] nums, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         int len = nums.length;
@@ -47,8 +52,40 @@ public class ApThreeSum {
         return ans;
     }
 
+    /**
+     * 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+     *
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int threeSumClosest(int[] nums, int target) {
+        // 排序
+        Arrays.sort(nums);
+        int ans = nums[0] + nums[1] + nums[2];
+        for(int i=0;i<nums.length;i++) {
+            int left = i+1, right = nums.length - 1;
+            while(left < right) {
+                int sum = nums[left] + nums[right] + nums[i];
+                // 新的值更接近，替换
+                if(Math.abs(target - sum) < Math.abs(target - ans))
+                    ans = sum;
+                // 调整左右指针
+                if(sum > target)
+                    right--;
+                else if(sum < target)
+                    left++;
+                else
+                    // 刚好等于
+                    return ans;
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[] {-1, 0, 1, 2, -1, -4};
         threeSum(arr, 3).forEach(System.out::println);
+        System.out.println(threeSumClosest(arr, 4));
     }
 }
