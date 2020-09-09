@@ -1,5 +1,7 @@
 package world.playtogether.backtracking;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class ApPermutation {
         // 触发结束条件
         if (track.size() == nums.length) {
             // new LinkedList() 新建一个对象
-            res.add(new LinkedList(track));
+            res.add(new LinkedList<>(track));
             return;
         }
 
@@ -47,9 +49,51 @@ public class ApPermutation {
         }
     }
 
+    /**
+     * 给定一个可包含重复数字的序列，返回所有不重复的全排列。
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        res.clear();
+        LinkedList<Integer> track = new LinkedList<>();
+        // 记录已访问过的索引
+        boolean[] visited = new boolean[nums.length];
+        Arrays.sort(nums);
+        backtrack(nums, visited, track);
+        return res;
+    }
+
+    /**
+     * 回溯，画出递归树，判断哪些可以剪枝的
+     * @param nums
+     * @param visited
+     * @param track
+     */
+    void backtrack(int[] nums, boolean[] visited, LinkedList<Integer> track) {
+        if (track.size() == nums.length) {
+            res.add(new ArrayList<>(track));
+            return;
+        }
+        for(int i = 0; i < nums.length; i++) {
+            if(visited[i]) continue;
+            // 当前值和前面的值一样，剪枝
+            if(i>0 && nums[i] == nums[i-1] && visited[i-1]) break;
+            visited[i] = true;
+            track.addLast(nums[i]);
+            backtrack(nums, visited, track);
+            visited[i] = false;
+            track.removeLast();
+        }
+    }
+
     public static void main(String[] args) {
         ApPermutation apPermutation = new ApPermutation();
         int[] nums = new int[] {1, 2, 3};
         apPermutation.permute(nums).forEach(System.out::println);
+        System.out.println();
+        int[] nums2 = new int[] {1, 1, 3};
+        apPermutation.permuteUnique(nums2).forEach(System.out::println);
+
     }
 }
