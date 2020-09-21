@@ -20,7 +20,7 @@ public class ApBiTreeSerialization<T> {
      * @param root
      * @return
      */
-    public String serialize(Node<T> root) {
+    public String serialize(BiNode<T> root) {
         StringBuilder sb = new StringBuilder();
         serialize(root, sb);
         return sb.toString();
@@ -31,7 +31,7 @@ public class ApBiTreeSerialization<T> {
      * @param data
      * @return
      */
-    public Node<T> deserialize(String data) {
+    public BiNode<T> deserialize(String data) {
         LinkedList<String> nodes = new LinkedList<>();
         for (String s : data.split(SEP)) {
             // s如果是对象，就需要对该对象进行反序列化
@@ -40,7 +40,7 @@ public class ApBiTreeSerialization<T> {
         return deserialize(nodes);
     }
 
-    void serialize(Node<T> root, StringBuilder sb) {
+    void serialize(BiNode<T> root, StringBuilder sb) {
         if (root == null) {
             sb.append(NULL).append(SEP);
             return;
@@ -50,38 +50,20 @@ public class ApBiTreeSerialization<T> {
         serialize(root.right, sb);
     }
 
-    Node<T> deserialize(LinkedList<String> nodes) {
+    BiNode<T> deserialize(LinkedList<String> nodes) {
         if (nodes.isEmpty()) return null;
         String first = nodes.removeFirst();
         if (first.equals(NULL)) return null;
-        Node<T> root = new Node(first);
+        BiNode<T> root = new BiNode(first);
         root.left = deserialize(nodes);
         root.right = deserialize(nodes);
         return root;
     }
 
-    static class Node<T> {
-        T data;
-        Node<T> left;
-        Node<T> right;
-
-        public Node(T data, Node<T> left, Node<T> right) {
-            this.data = data;
-            this.left = left;
-            this.right = right;
-        }
-
-        public Node(T data) {
-            this.data = data;
-        }
-
-        public Node(){}
-    }
-
     public static void main(String[] args) {
         ApBiTreeSerialization<String> serialization = new ApBiTreeSerialization<>();
         String sb = "1,2,#,4,#,#,3,#,#,";
-        Node<String> node = serialization.deserialize(sb);
+        BiNode<String> node = serialization.deserialize(sb);
         System.out.println(serialization.serialize(node));
     }
 }
