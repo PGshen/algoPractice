@@ -32,8 +32,26 @@ public class ApTwoSum {
         throw new IllegalArgumentException("No two sum solution");
     }
 
+    /**
+     * 暴力解法
+     * @param nums
+     * @param target
+     * @return
+     */
+    public static int[] twoSum2(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for(int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[] {i, j};
+                }
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[]{1, 2, 4, 6, 3, 9, 20};
-        System.out.println(Arrays.toString(twoSum(arr, 13)));
+        System.out.println(Arrays.toString(twoSum(arr, 29)));
+        System.out.println(Arrays.toString(twoSum2(arr, 29)));
     }
 }
