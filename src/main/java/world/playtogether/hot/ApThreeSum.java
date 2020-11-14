@@ -8,6 +8,7 @@ import java.util.List;
  * <project> algoPractice
  *
  * <p> 三数之和
+ * 求数组中三数之和为0的所有数组
  *
  * @author penggs
  * @since 2020-11-14
