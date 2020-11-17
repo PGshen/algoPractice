@@ -121,7 +121,7 @@ public class ApBinarySearch {
             } else if (arr[mid] < value) {
                 low = mid + 1;
             } else {
-                if (mid == 0 || arr[mid+1] != value) {
+                if (mid == arr.length - 1 || arr[mid+1] != value) {
                     return mid;
                 } else {
                     low = mid + 1;
