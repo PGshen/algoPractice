@@ -238,6 +238,37 @@ public class ApBinarySearchTree<T extends Comparable<T>> {
         } while (!queue.isEmpty());
     }
 
+    /**
+     * 层次遍历，记录每层
+     *
+     * @param root 根节点
+     * @author penggs
+     * @since 2020/8/12
+     */
+    public void levelTravel2(Node<T> root) {
+        if (root == null) {
+            return;
+        }
+        // 借助队列实现
+        ApSingleLinkedQueue<Node<T>> queue = new ApSingleLinkedQueue<>();
+        queue.enqueue(root);
+        int level = 1;
+        do {
+            int size = queue.getSize();
+            System.out.print("\nLeval " + level++ + ": ");
+            for (int i = 0; i < size; i++) {
+                Node<T> p = queue.dequeue();
+                System.out.print(p.data + " ");
+                if (p.left != null) {
+                    queue.enqueue(p.left);
+                }
+                if (p.right != null) {
+                    queue.enqueue(p.right);
+                }
+            }
+        } while (!queue.isEmpty());
+    }
+
     static class Node<T> {
         T data;
         Node<T> left;
@@ -279,6 +310,7 @@ public class ApBinarySearchTree<T extends Comparable<T>> {
         tree.postTravel(tree.root);
         System.out.println();
         tree.levelTravel(tree.root);
+        tree.levelTravel2(tree.root);
         System.out.println();
         tree.delete(3);
         tree.preTravel(tree.root);
