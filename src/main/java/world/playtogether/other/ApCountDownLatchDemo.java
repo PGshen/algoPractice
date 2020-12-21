@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ApCountDownLatchDemo {
     private static AtomicInteger sum = new AtomicInteger(0);
 
+    static ExecutorService service = Executors.newFixedThreadPool(30);
     /**
      * 内部类
      */
@@ -30,7 +31,7 @@ public class ApCountDownLatchDemo {
         @Override
         public void run() {
             try {
-                int sleetTime = new Random().nextInt(1000);
+                int sleetTime = new Random().nextInt(10000);
                 System.out.println(Thread.currentThread().getName() + ": Sleep " + sleetTime + " millisecond");
                 Thread.sleep(sleetTime);
                 sum.getAndAdd(1);
@@ -43,21 +44,25 @@ public class ApCountDownLatchDemo {
         }
     }
 
-    public static void main(String[] args) {
+    public void test(String taskName) {
         int count = 20;
         CountDownLatch latch = new CountDownLatch(count);
-        ExecutorService service = Executors.newFixedThreadPool(10);
-
         try {
             for (int i = 0; i < count; i++) {
                 service.submit(new Worker(latch));
             }
             latch.await();
+            System.out.println(taskName + " finished!!!");
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            service.shutdown();
         }
-        System.out.println(sum);
+    }
+
+    public static void main(String[] args) {
+        ApCountDownLatchDemo demo = new ApCountDownLatchDemo();
+        demo.test("Task1");
+        System.out.println("-----1");
+        demo.test("Task2");
+        System.out.println("-----2");
     }
 }
