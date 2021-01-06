@@ -52,6 +52,25 @@ public class ApSortBasedComparison {
         return arr;
     }
 
+    public static int[] bubbleSort2(int[] arr) {
+        if (arr.length == 0) {
+            return arr;
+        }
+        // 循环
+        for (int i = 1; i < arr.length; i++) {
+            // 相邻的两两对比
+            for (int j = arr.length - 1; j >= i; j--) {
+                // 如果顺序与要排序的不一致，交换位置；此处升序为例
+                if (arr[j-1] > arr[j]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j-1];
+                    arr[j-1] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+
     /**
      * 选择排序
      * 算法描述：
@@ -406,13 +425,14 @@ public class ApSortBasedComparison {
     public static void main(String[] args) {
         int[] sourceArr = new int[] {3,34,5,24,666,23,1,-3};
         //int[] sortedArr = bubbleSort(sourceArr);
+        int[] sortedArr = bubbleSort2(sourceArr);
         //int[] sortedArr = selectionSort(sourceArr);
         //int[] sortedArr = insertionSort(sourceArr);
         //int[] sortedArr = shellSort(sourceArr);
         //int[] sortedArr = mergeSort(sourceArr);
         //int[] sortedArr = quickSort(sourceArr);
         //int[] sortedArr = heapSort(sourceArr);
-        int[] sortedArr = binaryInsertSort(sourceArr);
+        //int[] sortedArr = binaryInsertSort(sourceArr);
         printArr(sortedArr);
     }
 }

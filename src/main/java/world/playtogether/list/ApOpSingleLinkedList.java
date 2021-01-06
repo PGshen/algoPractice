@@ -35,6 +35,23 @@ public class ApOpSingleLinkedList<T extends Comparable<T>> {
         }
         return pre;
     }
+
+    /**
+     * 递归方式反转链表
+     * @param head
+     * @return
+     */
+    public Node<T> reverse2(Node<T> head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // 保存最后一个节点，每次都返回它
+        Node<T> tail = reverse2(head.next);
+        // 修改指针
+        head.next.next = head;
+        head.next = null;
+        return tail;
+    }
     
     /** 
      * 检查链表是否存在环
