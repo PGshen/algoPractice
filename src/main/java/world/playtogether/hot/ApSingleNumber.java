@@ -15,7 +15,7 @@ public class ApSingleNumber {
     /**
      * 利用异或运算特性,重复的值会被消除
      * x ^ 0 = x
-     * x & x = 0
+     * x ^ x = 0
      * x ^ y ^ x = x ^ x ^ y = 0 ^ y = y
      * @param nums
      * @return
