@@ -44,6 +44,54 @@ public class ApBuildTreeByPreInOrder {
         return root;
     }
 
+    public static TreeNode buildTree2(int[] preorder, int[] inorder) {
+        return build(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1);
+    }
+
+    // 前序+中序
+    public static TreeNode build(int[] preorder, int ps, int pe, int[] inorder, int is, int ie) {
+        // 结束条件
+        if (ps > pe) return null;
+        // 查找前序的第一个元素在中序的位置
+        int index = is;
+        for (int i = is; i <= ie; i++) {
+            if (preorder[ps] == inorder[i]) {
+                index = i;
+                break;
+            }
+        }
+        // 找到位置的左侧是左子树，右侧是柚子树，计算得到长度后面用于分界
+        int len = index - is;
+        TreeNode treeNode = new TreeNode(preorder[ps]);
+        // 根据index下标和长度找到分界点
+        treeNode.left = build(preorder, ps + 1, ps + len, inorder, is, index - 1);
+        treeNode.right = build(preorder, ps + len + 1, pe, inorder, index + 1, ie);
+        return treeNode;
+    }
+
+    // 后序遍历+中序
+    public static TreeNode build2(int[] postorder, int ps, int pe, int[] inorder, int is, int ie) {
+        // 结束条件
+        if (ps > pe) return null;
+        // 查找前序的最后一个元素在中序的位置
+        int index = is;
+        for (int i = is; i <= ie; i++) {
+            if (postorder[pe] == inorder[i]) {
+                index = i;
+                break;
+            }
+        }
+        // 找到位置的左侧是左子树，右侧是柚子树，计算得到长度后面用于分界
+        int len = index - is;
+        TreeNode treeNode = new TreeNode(postorder[pe]);
+        // 根据index下标和长度找到分界点.边界值的确定可也一个实例去推算
+        treeNode.left = build(postorder, ps, ps + len - 1, inorder, is, index - 1);
+        treeNode.right = build(postorder, ps + len, pe - 1, inorder, index + 1, ie);
+        return treeNode;
+    }
+
+
+
     static class TreeNode {
         int val;
         TreeNode left;
