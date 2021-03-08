@@ -20,12 +20,13 @@ public class ApMaxPathSum {
         return max;
     }
 
+    // 定义返回值为作为父节点的子路径时能提供的最大值
     public int curNodeSum(TreeNode root) {
         if (root == null) return 0;
         int maxLeft = curNodeSum(root.left);
         int maxRight = curNodeSum(root.right);
         // 判断当前节点作为根节点时是否超过已知的最大路径和
-        int curMax = root.val + (Math.max(maxLeft, 0)) + Math.max(maxRight, 0);
+        int curMax = root.val + maxLeft + maxRight;
         if (curMax > max) max = curMax;
         // NOTE: 作为父节点的子路径时，当前节点只能选择左右中的一个路径
         int curSubMax = root.val + Math.max(maxLeft, maxRight);
