@@ -7,6 +7,20 @@ import java.util.Stack;
  */
 public class ApIsPalindrome {
 
+    // 判断一个数字是否是回文
+    public static boolean isPalindrome(int num) {
+        // 负数和10的整数倍可能不符合
+        if (num < 0 || (num % 10 == 0 && num != 0)) return false;
+        int revertedNum = 0;
+        // 后半段反向生成数值
+        while (num > revertedNum) {
+            revertedNum = revertedNum * 10 + num % 10;
+            num /= 10;
+        }
+        // revertedNum可能更大
+        return revertedNum == num || num == revertedNum/10;
+    }
+
     /**
      * 使用棧
      * @param head
@@ -70,5 +84,13 @@ public class ApIsPalindrome {
         ListNode(int x) {
             val = x;
         }
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(1221));
+        System.out.println(isPalindrome(1000));
+        System.out.println(isPalindrome(-22));
+        System.out.println(isPalindrome(121));
     }
 }

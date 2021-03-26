@@ -39,6 +39,7 @@ public class ApLongestPalindrome {
             L--;
             R++;
         }
+        // 这里因为是多跑了一轮循环，所以不是R-L+1, 而是R-L-1
         return R - L - 1;
     }
 

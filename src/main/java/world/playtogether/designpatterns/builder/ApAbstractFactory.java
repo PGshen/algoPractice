@@ -100,7 +100,7 @@ public class ApAbstractFactory {
     public static void main(String[] args) {
         ComputerFactory computerFactory = new IntelComputerFactory();
         Cpu cpu = computerFactory.makeCpu();
-        MainBoard mainBoard = computerFactory.makeMainBoard();
+        MainBoard mainBoard = new AmdComputerFactory().makeMainBoard();
         Computer computer = new Computer(cpu, mainBoard);
         System.out.println(computer.display());
     }
