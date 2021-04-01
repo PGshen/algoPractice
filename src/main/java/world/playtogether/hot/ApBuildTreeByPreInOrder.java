@@ -73,7 +73,7 @@ public class ApBuildTreeByPreInOrder {
     public static TreeNode build2(int[] postorder, int ps, int pe, int[] inorder, int is, int ie) {
         // 结束条件
         if (ps > pe) return null;
-        // 查找前序的最后一个元素在中序的位置
+        // 查找后序的最后一个元素在中序的位置
         int index = is;
         for (int i = is; i <= ie; i++) {
             if (postorder[pe] == inorder[i]) {

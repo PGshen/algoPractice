@@ -23,9 +23,11 @@ public class ApRecoverTree {
         err2.val=temp;
     }
 
+    // 通过中序遍历找到错位的节点
     void inOrder(TreeNode root) {
         if (root == null) return;
         inOrder(root.left);
+        // 通过err1是否为null来判断是否第一个
         if (prev.val > root.val && err1 == null) {
             // 第一个顺序错误的地方，记录的节点是前节点
             err1 = prev;
@@ -38,6 +40,11 @@ public class ApRecoverTree {
         inOrder(root.right);
     }
 
+    /**
+     * 有序数组转平衡二叉树
+     * @param nums 有序数组
+     * @return
+     */
     public TreeNode sortedArrayToBST(int[] nums) {
         return toBst(nums, 0, nums.length-1);
     }

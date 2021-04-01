@@ -49,9 +49,10 @@ public class ApConnect {
         Node cur = root;
 
         // 当一层链表
+        // cur在上层移动，pre在下层移动
         while(cur != null) {
             Node pre = new Node();
-            Node head = pre;
+            Node head = pre;    // head始终能保存了一个层的最左侧的
             while(cur != null) {
                 if(cur.left != null) {
                     pre.next = cur.left;

@@ -19,8 +19,10 @@ public class ApGenerateTrees {
     }
 
     List<TreeNode> generate(int start, int end) {
+        // 写在这里保证结果是当前长度的，而不是所有的
         List<TreeNode> ret = new ArrayList<>();
         if (start > end) {
+            // 这里保证非空数组，符合下面的循环
             ret.add(null);
             return ret;
         }
@@ -42,12 +44,14 @@ public class ApGenerateTrees {
         return ret;
     }
 
+    // 动态规划方式统计个数
     public int numTrees(int n) {
         int[] dp = new int[n+1];
         dp[0] = 1;
         dp[1] = 1;
         for (int i = 2; i < n + 1; i++) {
             for (int j = 0; j < i; j++) {
+                // 左右叉乘，再累加
                 dp[i] += dp[j] * dp[i-j+1];
             }
         }

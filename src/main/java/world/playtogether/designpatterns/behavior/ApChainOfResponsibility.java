@@ -57,6 +57,7 @@ public class ApChainOfResponsibility {
             //boolean allowed = activityService.isSupportedLocation(context);
             boolean allowed = context.isNewUser;
             if (allowed) {
+                System.out.println("你是新用户！");
                 // 如果有后继节点的话，传递下去
                 if (this.getSuccessor() != null) {
                     this.getSuccessor().apply(context);
@@ -72,6 +73,7 @@ public class ApChainOfResponsibility {
             //boolean allowed = activityService.isSupportedLocation(context.getLocation);
             boolean allowed = "Guangzhou".equals(context.getLocation());
             if (allowed) {
+                System.out.println("你是广州用户！");
                 if (this.getSuccessor() != null) {
                     this.getSuccessor().apply(context);
                 }
@@ -86,6 +88,7 @@ public class ApChainOfResponsibility {
             //int remainedTimes = activityService.queryRemainedTimes(context); // 查询剩余奖品
             int remainedTimes = 1;
             if (remainedTimes > 0) {
+                System.out.println("当前是领奖时间");
                 if (this.getSuccessor() != null) {
                     this.getSuccessor().apply(context);
                 }
@@ -101,15 +104,15 @@ public class ApChainOfResponsibility {
         RuleHandler limitHandler = new LimitRuleHandler();
 
         // 假设本次活动仅校验地区和奖品数量，不校验新老用户
-        //newUserHandler.setSuccessor(locationHandler);
+        newUserHandler.setSuccessor(locationHandler);
         locationHandler.setSuccessor(limitHandler);
 
         Context context = new Context();
-        //context.setLocation("Guangzhou");
-        context.setLocation("Shenzhen");
+        context.setLocation("Guangzhou");
+        //context.setLocation("Shenzhen");
         context.setNewUser(true);
         try {
-            locationHandler.apply(context);
+            newUserHandler.apply(context);
             System.out.println("领奖成功");
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
