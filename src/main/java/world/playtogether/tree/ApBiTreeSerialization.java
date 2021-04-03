@@ -42,6 +42,7 @@ public class ApBiTreeSerialization<T> {
 
     void serialize(BiNode<T> root, StringBuilder sb) {
         if (root == null) {
+            // 叶子的空左右子树也要记录起来，不然恢复的时候无法是否是叶子节点
             sb.append(NULL).append(SEP);
             return;
         }
@@ -50,6 +51,7 @@ public class ApBiTreeSerialization<T> {
         serialize(root.right, sb);
     }
 
+    // 按先序遍历顺序
     BiNode<T> deserialize(LinkedList<String> nodes) {
         if (nodes.isEmpty()) return null;
         String first = nodes.removeFirst();

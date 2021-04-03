@@ -33,10 +33,10 @@ public class ApCountNodes {
         int right = countLevel(root.right);
         if(left == right){
             // 左右子树高度一样，那左子树一定是满二叉树，节点数为2^left个，然后递归右子树进行计算
-            return countNodes(root.right) + (1<<left);
+            return countNodes2(root.right) + (1<<left);
         }else{
             // 左右子树高度不一样，那右子树一定是满二叉树，节点数为2^right个，然后递归左子树进行计算
-            return countNodes(root.left) + (1<<right);
+            return countNodes2(root.left) + (1<<right);
         }
     }
 

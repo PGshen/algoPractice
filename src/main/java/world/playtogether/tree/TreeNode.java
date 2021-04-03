@@ -9,9 +9,9 @@ package world.playtogether.tree;
  * @since 2021-03-07
  */
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode() {
     }

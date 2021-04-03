@@ -12,8 +12,15 @@ package world.playtogether.tree;
  * @author penggs
  * @since 2020-09-13
  */
-public class ApLowestCommonAncestor<T> {
+public class ApLowestCommonAncestor<T extends Comparable<T>> {
 
+    /**
+     * 普通二叉树
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
     public Node<T> lowestCommAncestor(Node<T> root, Node<T> p, Node<T> q) {
         // 当前节点为空或等于p或等于q时返回当前节点
         if (root == null || root == p || root == q) return root;
@@ -24,6 +31,23 @@ public class ApLowestCommonAncestor<T> {
         // 2. 左子树为空
         // 3. 右子树为空
         return left == null ? right : right == null ? left : root;
+    }
+
+    /**
+     * 二叉搜索树
+     * @param root
+     * @param p
+     * @param q
+     * @return
+     */
+    public Node<T> lowestCommAncestor2(Node<T> root, Node<T> p, Node<T> q) {
+        if (root.data.compareTo(p.data) > 0 && root.data.compareTo(q.data) > 0) {
+            return lowestCommAncestor2(root.left, p, q);
+        }
+        if (root.data.compareTo(p.data) < 0 && root.data.compareTo(q.data) < 0) {
+            return lowestCommAncestor2(root.right, p, q);
+        }
+        return root;
     }
 
     static class Node<T> {
