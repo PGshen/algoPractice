@@ -17,7 +17,7 @@ public class ApDp {
      * @param nums 数组
      * @return
      */
-    public int lengthOfLongestIncreasingSubsequence(int[] nums) {
+    public static int lengthOfLongestIncreasingSubsequence(int[] nums) {
         // dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。
         int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);

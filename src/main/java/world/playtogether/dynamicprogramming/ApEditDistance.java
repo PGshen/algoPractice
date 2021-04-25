@@ -39,6 +39,23 @@ public class ApEditDistance {
         }
     }
 
+    public void lwstBT(char[] a, int i, char[] b, int j, int dist) {
+        if (i == a.length || j == b.length) {
+            if (i < a.length) dist += a.length - i;
+            if (j < b.length) dist += b.length - j;
+            if (dist < minDist) minDist = dist;
+            return;
+        }
+        if (a[i] == b[j]) {
+            // a,b 的两个位置的字符相等，那么都向后推进，距离不需要增加
+            lwstBT(a, i + 1, b, j + 1, dist);
+        } else {
+            lwstBT(a, i + 1, b, j, dist + 1);   // a推进——>删a[i]或者b[j]前面插入一个字符
+            lwstBT(a, i, b, j + 1, dist + 1);   // b推进——>删b[j]或者a[i]前面插入一个字符
+            lwstBT(a, i + 1, b, j + 1, dist + 1);   // 一起推进——>a[i]或b[j]替换为对方的字符
+        }
+    }
+
     /**
      * 状态转移表计算莱文斯坦距离
      *
@@ -139,6 +156,32 @@ public class ApEditDistance {
         return maxv;
     }
 
+    public int minDist(char[] a, char[] b) {
+        int m = a.length, n = b.length;
+        // dp定义为a[0...i] 到 b[0...j]的最小距离
+        int[][] dp = new int[m+1][n+1];
+        // 初始化
+        for (int i = 1; i < m; i++) {
+            dp[i][0] = i;
+        }
+        for (int j = 1; j < n; j++) {
+            dp[0][j] = j;
+        }
+        // 填充表
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (a[i-1] == b[j-1]) {
+                    // 相等，直接等于左上的
+                    dp[i][j] = dp[i-1][j-1];
+                } else {
+                    // 取左上、左、上中最小的转换到当前值
+                    dp[i][j] = 1 + min(dp[i][j-1], dp[i-1][j], dp[i-1][j-1]);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+
     public static void main(String[] args) {
         ApEditDistance apEditDistance = new ApEditDistance();
         char[] a = "mitcmu".toCharArray();
@@ -147,10 +190,12 @@ public class ApEditDistance {
         int m = 6;
         apEditDistance.minDist = Integer.MAX_VALUE;
         apEditDistance.lwstBT(a, n, b, m, 0, 0, 0);
+        //apEditDistance.lwstBT(a, 0, b, 0, 0);
         System.out.println(apEditDistance.minDist);
         System.out.println();
         System.out.println(apEditDistance.lwstDP(a, n, b, m));
         System.out.println();
         System.out.println(apEditDistance.lcs(a, n, b, m));
+        System.out.println(apEditDistance.minDist(a, b));
     }
 }

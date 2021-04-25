@@ -10,31 +10,44 @@ package world.playtogether.dynamicprogramming;
  */
 public class ApMaximalRectangle {
     public static int maximalRectangle(int[][] matrix) {
-        int ret = 0;
-        int xLen = matrix.length;
-        int yLen = matrix[0].length;
-        int[][] maxMatrix = new int[xLen][yLen];
-        // 初始化
-        for (int i = 0; i < xLen; i++) {
-            maxMatrix[i][0] = matrix[i][0];
+        if (matrix.length == 0) {
+            return 0;
         }
-        for (int j = 0; j < yLen; j++) {
-            maxMatrix[0][j] = matrix[0][j];
-        }
-        for (int i = 1; i < xLen; i++) {
-            for (int j = 1; j < yLen; j++) {
-                if (matrix[i][j] == 0) continue;
-                int curVal = 0;
-                if (maxMatrix[i][j-1] == 0 || maxMatrix[i-1][j] == 0) {
-                    curVal = Math.max(maxMatrix[i][j-1], maxMatrix[i-1][j]) + 1;
+        int[] heights = new int[matrix[0].length];
+        int maxArea = 0;
+        // 按行计算heights
+        for (int row = 0; row < matrix.length; row++) {
+            //遍历每一列，更新高度
+            for (int col = 0; col < matrix[0].length; col++) {
+                if (matrix[row][col] == 1) {
+                    heights[col] += 1;
                 } else {
-                    curVal = maxMatrix[i][j-1] + maxMatrix[i-1][j] - maxMatrix[i-1][j-1] + 1;
+                    heights[col] = 0;
                 }
-                maxMatrix[i][j] = curVal;
-                if (curVal > ret) ret = curVal;
             }
+            //调用上一题的解法，更新函数
+            maxArea = Math.max(maxArea, largestRectangleArea(heights));
         }
-        return ret;
+        return maxArea;
+    }
+
+    public static int largestRectangleArea(int[] heights) {
+        int maxArea = 0;
+        for (int i = 0; i < heights.length; i++) {
+            // 以heights[i]为中心，找左侧大于等于当前高度的下标
+            int maxLeft = i;
+            while (maxLeft >= 0 && heights[maxLeft] >= heights[i]) {
+                maxLeft--;
+            }
+            // 以heights[i]为中心，找右侧大于等于当前高度的下标
+            int maxRight = i;
+            while (maxRight < heights.length && heights[maxRight] >= heights[i]) {
+                maxRight++;
+            }
+            // 判断是否能超过当前最大值
+            maxArea = Math.max(maxArea, heights[i] * (maxRight - maxLeft - 1));
+        }
+        return maxArea;
     }
 
     public static void main(String[] args) {

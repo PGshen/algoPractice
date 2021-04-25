@@ -32,6 +32,7 @@ public class ApShortestPath {
     public void minDistBT(int i, int j, int dist, int[][] w, int n) {
         // 到达了n-1, n-1这个位置了,这里看着有点奇怪哈,你自己举个例子看下
         if (i == n - 1 && j == n - 1) {
+            dist += w[i][j];
             if (dist < minDist) minDist = dist;
             return;
         }
