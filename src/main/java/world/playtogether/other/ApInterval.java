@@ -81,6 +81,7 @@ public class ApInterval {
         int end = intervals[0][1];
         for (int[] cur: intervals) {
             if (cur[0] >= end) {
+                // 出现新的不相交区间
                 count++;
                 end = cur[1];
             }

@@ -88,7 +88,7 @@ public class ApHouseRobber {
         if (length == 1) return nums[0];
         // 首尾房间不能同时被抢，那么只可能有三种不同情况：要么都不被抢；要么第一间房子被抢最后一间不抢；要么最后一间房子被抢第一间不抢
         // 由于金额不会是负数，所以只需考虑后面两种情况即可
-        return Math.max(dpRange(nums, 0, length - 2), dpRange(nums, 1, length - 1));
+        return Math.max(dpRange(nums, 0, length - 1), dpRange(nums, 1, length));
     }
 
     private int dpRange(int[] nums, int start, int end) {
@@ -165,6 +165,6 @@ public class ApHouseRobber {
     public static void main(String[] args) {
         ApHouseRobber apHouseRobber = new ApHouseRobber();
         int[] nums = new int[]{1,2,3,1};
-        System.out.println(apHouseRobber.rob(nums));
+        System.out.println(apHouseRobber.rob4(nums));
     }
 }
