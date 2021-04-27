@@ -178,6 +178,64 @@ public class ApOpSingleLinkedList<T extends Comparable<T>> {
         return slow;
     }
 
+    /**
+     * 判断链表是否是回文
+     */
+    // 左侧指针
+    Node<T> left;
+
+    boolean isPalindrome(Node<T> head) {
+        left = head;
+        return traverse(head);
+    }
+
+    boolean traverse(Node<T> right) {
+        if (right == null) return true;
+        boolean res = traverse(right.next);
+        // 后序遍历代码
+        res = res && (right.data.compareTo(left.data) == 0);
+        left = left.next;
+        return res;
+    }
+
+    /** 反转区间 [a, b) 的元素，注意是左闭右开 */
+    Node<T> reverse(Node<T> a, Node<T> b) {
+        Node<T> pre, cur, nxt;
+        pre = null; cur = a; nxt = a;
+        // while 终止的条件改一下就行了
+        while (cur != b) {
+            nxt = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = nxt;
+        }
+        // 返回反转后的头结点
+        return pre;
+    }
+
+    /**
+     * 每k个一组反转链表
+     * @param head
+     * @param k
+     * @return
+     */
+    Node<T> reverseKGroup(Node<T> head, int k) {
+        if (head == null) return null;
+        // 区间 [a, b) 包含 k 个待反转元素
+        Node<T> a, b;
+        a = b = head;
+        for (int i = 0; i < k; i++) {
+            // 不足 k 个，不需要反转，base case
+            if (b == null) return head;
+            b = b.next;
+        }
+        // 反转前 k 个元素
+        Node<T> newHead = reverse(a, b);
+        // 递归反转后续链表并连接起来
+        a.next = reverseKGroup(b, k);
+        return newHead;
+    }
+
     public String printList(Node<T> node) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -228,5 +286,13 @@ public class ApOpSingleLinkedList<T extends Comparable<T>> {
         Node<String> node5 = new Node<>("Five", null);
         Node<String> node6 = new Node<>("Six", node5);
         System.out.println(apOpSingleLinkedList.printList(apOpSingleLinkedList.mergeSortedList(node, node6)));
+
+        Node<String> node7 = new Node<>("One", null);
+        Node<String> node8 = new Node<>("Two", node7);
+        Node<String> node9 = new Node<>("HH", node8);
+        System.out.println(apOpSingleLinkedList.isPalindrome(node9));
+
+
+        System.out.println(apOpSingleLinkedList.printList(apOpSingleLinkedList.reverseKGroup(node, 2)));
     }
 }

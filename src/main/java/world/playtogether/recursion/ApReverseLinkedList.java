@@ -41,6 +41,20 @@ public class ApReverseLinkedList<T> {
         return last;
     }
 
+    Node<T> reverseN2(Node<T> head, int n) {
+        if (head == null) return null;
+        Node<T> cur = head, prev = null;
+        while (n > 0 && cur != null) {
+            Node<T> next = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = next;
+            n--;
+        }
+        head.next = cur;    // 旧的头节点连接后面没有反转的后续链表
+        return prev;
+    }
+
     /**
      * 反正链表区间[m,n]的节点
      * @param head
@@ -54,6 +68,34 @@ public class ApReverseLinkedList<T> {
         }
         // 向前直到m==1时，转为reverseN情况
         head.next = reverseMN(head.next, m - 1, n - 1);
+        return head;
+    }
+
+    Node<T> reverseMN2(Node<T> head, int m, int n) {
+        if (head == null) return null;
+        Node<T> cur = head, prev = null, nodeM = null;
+        while (cur != null) {
+            if (--m > 0) {
+                // 还没到达m，直接前进，并记录m节点
+                prev = cur;
+                cur = cur.next;
+                nodeM = prev;
+                n--;
+            } else if (n-- > 0) {
+                // 在[m,n]范围内，反转
+                Node<T> next = cur.next;
+                cur.next = prev;
+                prev = cur;
+                cur = next;
+            } else {
+                break;
+            }
+        }
+        if (prev != null) {
+            // 前后指针修改
+            nodeM.next.next = cur;
+            nodeM.next = prev;
+        }
         return head;
     }
 
@@ -96,6 +138,8 @@ public class ApReverseLinkedList<T> {
         ApReverseLinkedList<Integer> reverseLinkedList = new ApReverseLinkedList<>();
         //reverseLinkedList.print(reverseLinkedList.reverse(node1));
         //reverseLinkedList.print(reverseLinkedList.reverseN(node1, 3));
-        reverseLinkedList.print(reverseLinkedList.reverseMN(node1, 2, 4));
+        //reverseLinkedList.print(reverseLinkedList.reverseN2(node1, 3));
+        //reverseLinkedList.print(reverseLinkedList.reverseMN(node1, 2, 4));
+        reverseLinkedList.print(reverseLinkedList.reverseMN2(node1, 2, 4));
     }
 }
